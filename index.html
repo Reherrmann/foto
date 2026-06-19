@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foto Sobral | Revelação de Fotos & Fotografia</title>
-    <meta name="description" content="Transforme suas fotos em lembranças para a vida toda. Revelação de fotos, fotoprodutos personalizados, fotos para documentos e estúdio fotográfico em Sobral." />
+    <title>FotoBot AI | Assistente Inteligente para Lojas Fotográficas</title>
+    <meta name="description" content="Chatbot especializado para lojas de fotografia. Automatize atendimento, vendas, agendamentos e integração com Google Sheets e Calendar no WhatsApp 24h." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -420,6 +420,8 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         .message {
@@ -451,6 +453,7 @@
             color: #111827;
             align-self: flex-end;
             border-top-right-radius: 6px;
+            text-align: left;
         }
 
         /* Grids */
@@ -705,7 +708,7 @@
         /* Gallery */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 24px;
             margin-top: 50px;
         }
@@ -718,18 +721,21 @@
             transition: .25s ease;
             aspect-ratio: 1 / 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: var(--muted);
             font-weight: 600;
+            gap: 16px;
+        }
+        .gallery-item i {
+            font-size: 2rem;
+            color: var(--primary);
         }
         .gallery-item:hover {
             border-color: var(--primary);
             transform: translateY(-4px);
             box-shadow: 0 20px 50px rgba(0,0,0,.4);
-        }
-        .gallery-item.large {
-            grid-column: span 2;
         }
 
         /* Responsive */
@@ -751,7 +757,6 @@
             .flow-arrow { margin: 0 4px; font-size: 1.4rem; }
             .flow-node { min-width: 130px; padding: 22px 16px; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-            .gallery-item.large { grid-column: span 2; }
         }
         @media(max-width:1024px) {
             .hero-grid, .results-grid, .grid-3, .grid-2 { grid-template-columns: 1fr; }
@@ -766,8 +771,7 @@
             .integrations-row { gap: 16px; }
             .integration-badge { padding: 12px 16px; }
             .how-grid { grid-template-columns: repeat(2, 1fr); }
-            .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-item.large { grid-column: span 1; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media(max-width:768px) {
             .section { padding: 90px 0; }
@@ -791,7 +795,6 @@
             .integrations-row { gap: 10px; }
             .integration-badge { padding: 10px 14px; font-size: .85rem; }
             .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-item.large { grid-column: span 1; }
         }
     </style>
 </head>
@@ -805,21 +808,21 @@
                 <div class="logo-icon">
                     <svg viewBox="0 0 52 52" fill="none">
                         <rect width="52" height="52" rx="14" fill="#e8a850"/>
-                        <circle cx="17" cy="18" r="5" fill="#0a0f1e"/>
-                        <path d="M7 37l7-10 5.5 6.5L32 25l10 12H7z" fill="#0a0f1e" opacity="0.9"/>
+                        <path d="M26 12 L32 24 L38 12 L44 24 L38 36 L32 36 L26 24 L20 36 L14 36 L8 24 L14 12 L20 24 L26 12Z" fill="#0a0f1e" opacity="0.9"/>
+                        <circle cx="26" cy="24" r="6" fill="#0a0f1e"/>
                     </svg>
                 </div>
                 <div class="logo-text">
-                    <strong>FOTO SOBRAL</strong>
-                    <span>REVELAÇÃO & FOTOGRAFIA</span>
+                    <strong>FOTOBOT AI</strong>
+                    <span>ASSISTENTE INTELIGENTE</span>
                 </div>
             </div>
             <div class="nav-links">
-                <a href="#servicos">Serviços</a>
+                <a href="#demonstracao">Demonstração</a>
+                <a href="#servicos">Funcionalidades</a>
+                <a href="#integracoes">Integrações</a>
                 <a href="#como-funciona">Como funciona</a>
-                <a href="#diferenciais">Diferenciais</a>
-                <a href="#galeria">Galeria</a>
-                <a href="#contato">Contato</a>
+                <a href="#depoimentos">Depoimentos</a>
                 <a href="https://wa.me/55SEUNUMERO" class="btn btn-outline" target="_blank">
                     <i data-lucide="message-circle" width="18" height="18"></i> Falar no WhatsApp
                 </a>
@@ -832,32 +835,32 @@
         <div class="container hero-grid">
             <div class="fade-up">
                 <div class="hero-badge">
-                    <span class="dot"></span> 📸 Desde 2010 em Sobral
+                    <span class="dot"></span> 🤖 Inteligência Artificial para Fotografia
                 </div>
                 <h1>
-                    Transforme suas fotos em <span class="gradient-text">lembranças para a vida toda.</span>
+                    Seu estúdio responde clientes <span class="gradient-text">24 horas por dia</span> no WhatsApp.
                 </h1>
                 <p class="hero-subtitle">
-                    <strong>Revelação de fotos, fotoprodutos personalizados, fotos para documentos e estúdio fotográfico</strong> com qualidade premium. Tudo pelo WhatsApp, sem sair de casa.
+                    O <strong>chatbot especializado para lojas fotográficas</strong> que vende revelações, fotoprodutos, fotos para documentos e agenda ensaios automaticamente — integrado ao Google Sheets e Calendar.
                 </p>
                 <div class="hero-buttons">
-                    <a href="https://wa.me/55SEUNUMERO" class="btn btn-primary btn-large" target="_blank">
-                        <i data-lucide="image" width="20" height="20"></i> Revelar Fotos
+                    <a href="#demonstracao" class="btn btn-primary btn-large">
+                        <i data-lucide="play" width="20" height="20"></i> Solicitar Demonstração
                     </a>
                     <a href="https://wa.me/55SEUNUMERO" class="btn btn-whatsapp btn-large" target="_blank">
                         <i data-lucide="message-circle" width="20" height="20"></i> Falar no WhatsApp
                     </a>
                 </div>
                 <div class="social-proof">
-                    <span><i data-lucide="star" size="18"></i> +500 clientes satisfeitos</span>
-                    <span><i data-lucide="clock" size="18"></i> Entrega rápida</span>
+                    <span><i data-lucide="check-circle" size="18"></i> Resposta imediata 24h</span>
+                    <span><i data-lucide="calendar" size="18"></i> Agendamento automático</span>
                 </div>
             </div>
             <div class="mockup fade-up">
                 <div class="mockup-header">
-                    <div class="avatar">FS</div>
+                    <div class="avatar">FB</div>
                     <div>
-                        <div class="mockup-name">Foto Sobral</div>
+                        <div class="mockup-name">FotoBot AI</div>
                         <div class="status">
                             <div class="pulse"></div>
                             respondendo agora
@@ -866,97 +869,185 @@
                 </div>
                 <div class="chat-area">
                     <div class="message msg-user">
-                        Olá! Gostaria de revelar algumas fotos do meu álbum de família ❤️
-                        <small>10:15 ✓</small>
+                        Olá
+                        <small>14:22 ✓</small>
                     </div>
                     <div class="message msg-bot">
-                        Claro! Pode me enviar as fotos por aqui mesmo. Revelação digital em até 24h. Qual tamanho deseja?
-                        <small>10:16 ✓✓</small>
+                        Olá! 😊<br><br>
+                        O que deseja hoje?<br><br>
+                        📸 Revelação de Fotos<br>
+                        🖼️ Fotoprodutos<br>
+                        🪪 Foto 3x4 e outros formatos<br>
+                        🎬 Estúdio Fotográfico
+                        <small>14:22 ✓✓</small>
                     </div>
                     <div class="message msg-user">
-                        Quero 15 fotos no tamanho 15x21, com acabamento fosco.
-                        <small>10:17 ✓</small>
+                        Quero revelar fotos
+                        <small>14:23 ✓</small>
                     </div>
                     <div class="message msg-bot">
-                        Perfeito! O valor fica R$ 22,50. Confirmo o pedido e te aviso assim que estiver pronto para retirada. 😊
-                        <small>10:17 ✓✓</small>
+                        Qual tamanho deseja?<br><br>
+                        📸 10x15<br>
+                        📸 15x21<br>
+                        📸 20x30
+                        <small>14:23 ✓✓</small>
+                    </div>
+                    <div class="message msg-user">
+                        10x15
+                        <small>14:24 ✓</small>
+                    </div>
+                    <div class="message msg-bot">
+                        Qual papel você prefere?<br><br>
+                        ✨ Brilhante<br>
+                        ✨ Fosco
+                        <small>14:24 ✓✓</small>
+                    </div>
+                    <div class="message msg-user">
+                        Brilhante
+                        <small>14:25 ✓</small>
+                    </div>
+                    <div class="message msg-bot">
+                        Perfeito 😊<br><br>
+                        Agora envie suas fotos.<br>
+                        Quando terminar de enviar todas as imagens escreva:<br>
+                        <strong>FINALIZEI</strong>
+                        <small>14:25 ✓✓</small>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SERVIÇOS -->
-    <section class="section" id="servicos" style="padding-top: 0;">
+    <!-- DEMONSTRAÇÃO 2: AGENDAMENTO -->
+    <section class="section" id="demonstracao" style="padding-top: 0;">
         <div class="container">
-            <div class="label fade-up">NOSSOS SERVIÇOS</div>
-            <h2 class="fade-up">
-                Soluções completas em <span class="gradient-text">fotografia</span>
+            <div class="label fade-up">DEMONSTRAÇÃO</div>
+            <h2 class="fade-up" style="text-align:center;">
+                Agendamento <span class="gradient-text">Inteligente</span>
             </h2>
-            <div class="grid-4 fade-up">
+            <p class="fade-up" style="text-align:center; max-width:700px; margin:0 auto 10px;">
+                Veja como o FotoBot AI gerencia seus agendamentos de forma autônoma, integrada ao Google Calendar.
+            </p>
+            <div class="mockup fade-up" style="max-width: 520px; margin: 50px auto 0;">
+                <div class="mockup-header">
+                    <div class="avatar">FB</div>
+                    <div>
+                        <div class="mockup-name">FotoBot AI</div>
+                        <div class="status">
+                            <div class="pulse"></div>
+                            respondendo agora
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-area" style="max-height: 400px;">
+                    <div class="message msg-user">
+                        Quero agendar um ensaio
+                        <small>10:05 ✓</small>
+                    </div>
+                    <div class="message msg-bot">
+                        Como é nosso primeiro contato 😊<br>
+                        Qual é o seu nome?
+                        <small>10:05 ✓✓</small>
+                    </div>
+                    <div class="message msg-user">
+                        Maria
+                        <small>10:06 ✓</small>
+                    </div>
+                    <div class="message msg-bot">
+                        Agora me informe seu melhor e-mail.
+                        <small>10:06 ✓✓</small>
+                    </div>
+                    <div class="message msg-user">
+                        maria@gmail.com
+                        <small>10:07 ✓</small>
+                    </div>
+                    <div class="message msg-bot">
+                        Perfeito 😊<br><br>
+                        Tenho estes horários disponíveis para amanhã:<br><br>
+                        🕘 09h<br>
+                        🕑 14h<br>
+                        🕔 17h<br><br>
+                        Qual funciona melhor para você?
+                        <small>10:07 ✓✓</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVIÇOS / FUNCIONALIDADES -->
+    <section class="section" id="servicos">
+        <div class="container">
+            <div class="label fade-up">FUNCIONALIDADES</div>
+            <h2 class="fade-up">
+                O que o <span class="gradient-text">FotoBot AI</span> faz por você
+            </h2>
+            <div class="grid-2 fade-up">
                 <div class="card">
                     <div class="icon">📸</div>
-                    <h3>Revelação de Fotos</h3>
-                    <p>Alta qualidade em diversos tamanhos. Acabamento fosco ou brilhante, cores vivas e nitidez.</p>
-                    <a href="https://wa.me/55SEUNUMERO" class="btn btn-outline" style="margin-top:20px; width:100%;">Pedir agora</a>
+                    <h3>Revelação Automática</h3>
+                    <p>Pergunta tamanho, papel, recebe as fotos e finaliza o pedido sozinho — tudo integrado à sua planilha de preços.</p>
                 </div>
                 <div class="card">
                     <div class="icon">🖼️</div>
                     <h3>Fotoprodutos</h3>
-                    <p>Canecas, almofadas, quadros, azulejos e chaveiros personalizados com suas fotos.</p>
-                    <a href="https://wa.me/55SEUNUMERO" class="btn btn-outline" style="margin-top:20px; width:100%;">Pedir agora</a>
+                    <p>Consulta preços automaticamente no Google Sheets e monta o pedido de canecas, quadros, almofadas e mais.</p>
                 </div>
                 <div class="card">
                     <div class="icon">🪪</div>
-                    <h3>Fotos para Documentos</h3>
-                    <p>3x4, passaporte, visto americano e currículo. Prontas na hora, padrão oficial.</p>
-                    <a href="https://wa.me/55SEUNUMERO" class="btn btn-outline" style="margin-top:20px; width:100%;">Pedir agora</a>
+                    <h3>Foto Documento</h3>
+                    <p>Informa valores, tamanhos disponíveis e prazos de entrega automaticamente, 24 horas por dia.</p>
                 </div>
                 <div class="card">
-                    <div class="icon">🎬</div>
-                    <h3>Estúdio Fotográfico</h3>
-                    <p>Ensaios infantis, família, gestante e corporativo. Direção de pose profissional.</p>
-                    <a href="https://wa.me/55SEUNUMERO" class="btn btn-outline" style="margin-top:20px; width:100%;">Agendar ensaio</a>
+                    <div class="icon">📅</div>
+                    <h3>Agendamento Inteligente</h3>
+                    <p>Consulta disponibilidade na sua agenda, agenda automaticamente e envia lembretes para reduzir faltas.</p>
                 </div>
             </div>
             <div class="mini-roi fade-up" style="max-width: 700px; margin: 40px auto 0;">
-                <p>💡 Peça tudo sem sair de casa — envie suas fotos pelo WhatsApp e receba em casa ou retire na loja.</p>
+                <p>💡 O FotoBot AI elimina tarefas repetitivas e libera sua equipe para o que realmente importa: produzir mais e melhor.</p>
             </div>
         </div>
     </section>
 
-    <!-- DIFERENCIAIS -->
-    <section class="section" id="diferenciais">
+    <!-- INTEGRAÇÕES -->
+    <section class="section" id="integracoes">
         <div class="container">
-            <div class="label fade-up">DIFERENCIAIS</div>
+            <div class="label fade-up">INTEGRAÇÕES</div>
             <h2 class="fade-up" style="text-align:center;">
-                Por que a <span class="gradient-text">Foto Sobral</span> é a escolha certa
+                Conectado ao seu <span class="gradient-text">ecossistema</span>
             </h2>
-            <div class="grid-2 fade-up">
-                <div class="card">
-                    <div class="icon">⚡</div>
-                    <h3>Atendimento rápido</h3>
-                    <p>Respondemos em minutos pelo WhatsApp, com orçamento na hora e sem burocracia.</p>
+            <p class="fade-up" style="text-align:center; max-width:700px; margin:0 auto 10px;">
+                O FotoBot AI se integra com as ferramentas que você já usa, sem trocar de número nem de sistema.
+            </p>
+            <div class="integrations-row fade-up">
+                <div class="integration-badge">
+                    <span class="int-icon">💚</span>
+                    <span>WhatsApp Business</span>
                 </div>
-                <div class="card">
-                    <div class="icon">✨</div>
-                    <h3>Impressão premium</h3>
-                    <p>Equipamentos de última geração, papel fotográfico profissional e cores fiéis.</p>
+                <div class="integration-badge">
+                    <span class="int-icon">📊</span>
+                    <span>Google Sheets</span>
                 </div>
-                <div class="card">
-                    <div class="icon">🎁</div>
-                    <h3>Produtos personalizados</h3>
-                    <p>Grande variedade de fotoprodutos para presentear ou decorar com suas memórias.</p>
+                <div class="integration-badge">
+                    <span class="int-icon">📅</span>
+                    <span>Google Calendar</span>
                 </div>
-                <div class="card">
-                    <div class="icon">📷</div>
-                    <h3>Estúdio completo</h3>
-                    <p>Ambiente climatizado, iluminação profissional e fotógrafo experiente para todas as ocasiões.</p>
+                <div class="integration-badge">
+                    <span class="int-icon">⚙️</span>
+                    <span>n8n</span>
                 </div>
-                <div class="card" style="grid-column: span 2;">
-                    <div class="icon">💬</div>
-                    <h3>Atendimento via WhatsApp</h3>
-                    <p>Envie fotos, tire dúvidas, faça pedidos e acompanhe tudo pelo app que você já usa no dia a dia.</p>
+                <div class="integration-badge">
+                    <span class="int-icon">🔗</span>
+                    <span>Evolution API</span>
+                </div>
+                <div class="integration-badge">
+                    <span class="int-icon">🗄️</span>
+                    <span>Redis</span>
+                </div>
+                <div class="integration-badge">
+                    <span class="int-icon">🧠</span>
+                    <span>OpenAI</span>
                 </div>
             </div>
         </div>
@@ -967,150 +1058,77 @@
         <div class="container">
             <div class="label fade-up">PASSO A PASSO</div>
             <h2 class="fade-up" style="text-align:center;">
-                Como <span class="gradient-text">funciona</span> o nosso processo
+                Como o <span class="gradient-text">FotoBot AI</span> opera
             </h2>
             <p class="fade-up" style="text-align:center; max-width:700px; margin:0 auto 10px;">
-                Simples, rápido e totalmente pelo WhatsApp. Veja como é fácil transformar suas fotos.
+                Um fluxo simples, inteligente e totalmente automatizado no seu WhatsApp.
             </p>
 
             <div class="visual-flow fade-up" style="position:relative;">
                 <div class="flow-node">
-                    <span class="flow-icon">📱</span>
-                    <h4>Escolha o produto</h4>
-                    <span>Navegue e selecione o serviço</span>
+                    <span class="flow-icon">💬</span>
+                    <h4>Cliente chama</h4>
+                    <span>No WhatsApp da sua loja</span>
                 </div>
                 <div class="flow-arrow">→</div>
                 <div class="flow-node">
-                    <span class="flow-icon">💬</span>
-                    <h4>Envie suas fotos</h4>
-                    <span>Pelo WhatsApp com qualidade original</span>
+                    <span class="flow-icon">🧠</span>
+                    <h4>IA identifica</h4>
+                    <span>Intenção e contexto</span>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node">
+                    <span class="flow-icon">📊</span>
+                    <h4>Consulta dados</h4>
+                    <span>Google Sheets ou Calendar</span>
                 </div>
                 <div class="flow-arrow">→</div>
                 <div class="flow-node">
                     <span class="flow-icon">✅</span>
-                    <h4>Confirmação</h4>
-                    <span>Valor, prazo e detalhes alinhados</span>
-                </div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-node">
-                    <span class="flow-icon">📦</span>
-                    <h4>Retire ou receba</h4>
-                    <span>Na loja ou entrega em casa</span>
-                </div>
-            </div>
-
-            <div class="how-grid fade-up" style="margin-top: 80px;">
-                <div class="step">
-                    <div class="step-icon">
-                        <div class="step-badge">1</div>
-                        <i data-lucide="mouse-pointer-click"></i>
-                    </div>
-                    <h3>Escolha o produto</h3>
-                    <p>Veja nossos serviços e selecione o que melhor atende sua necessidade.</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <div class="step-badge">2</div>
-                        <i data-lucide="send"></i>
-                    </div>
-                    <h3>Envie suas fotos</h3>
-                    <p>Pelo WhatsApp, envie suas fotos digitais com qualidade original. É rápido e seguro.</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <div class="step-badge">3</div>
-                        <i data-lucide="check-circle"></i>
-                    </div>
-                    <h3>Confirmação</h3>
-                    <p>Confirmamos o pedido, valor e prazo de entrega. Tudo alinhado com você.</p>
-                </div>
-                <div class="step">
-                    <div class="step-icon">
-                        <div class="step-badge">4</div>
-                        <i data-lucide="package"></i>
-                    </div>
-                    <h3>Retire ou receba</h3>
-                    <p>Retire na loja ou receba no conforto da sua casa. Entrega rápida.</p>
+                    <h4>Finaliza sozinho</h4>
+                    <span>Pedido ou agendamento</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GALERIA -->
-    <section class="section" id="galeria">
+    <!-- BENEFÍCIOS -->
+    <section class="section" id="beneficios">
         <div class="container">
-            <div class="label fade-up">PORTFÓLIO</div>
+            <div class="label fade-up">BENEFÍCIOS</div>
             <h2 class="fade-up" style="text-align:center;">
-                Conheça alguns <span class="gradient-text">trabalhos</span>
+                Por que usar o <span class="gradient-text">FotoBot AI?</span>
             </h2>
-            <p class="fade-up" style="text-align:center; max-width:700px; margin:0 auto 10px;">
-                Resultados reais que entregam qualidade e emoção em cada impressão.
-            </p>
-            <div class="gallery-grid fade-up">
-                <div class="gallery-item large">Álbum de Família</div>
-                <div class="gallery-item">Quadro Decorativo</div>
-                <div class="gallery-item">Caneca Personalizada</div>
-                <div class="gallery-item">Foto 3x4 Profissional</div>
-                <div class="gallery-item">Ensaio Gestante</div>
-                <div class="gallery-item">Almofada com Foto</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEPOIMENTOS -->
-    <section class="section" id="depoimentos">
-        <div class="container">
-            <div class="label fade-up">DEPOIMENTOS</div>
-            <h2 class="fade-up" style="text-align:center;">
-                O que nossos <span class="gradient-text">clientes dizem</span>
-            </h2>
-            <div class="results-grid fade-up">
-                <div class="results-col">
-                    <div class="stars">★★★★★</div>
-                    <p>"Revelei as fotos do batizado do meu filho e o resultado ficou incrível! Cores perfeitas, papel de qualidade e entrega antes do prazo."</p>
-                    <div class="author">
-                        <strong>Maria Silva</strong>
-                        <span>Cliente desde 2022</span>
-                    </div>
+            <div class="grid-3 fade-up">
+                <div class="card">
+                    <div class="icon">⚡</div>
+                    <h3>Responde em segundos</h3>
+                    <p>Seus clientes nunca mais esperam horas por uma resposta. Atendimento imediato a qualquer momento.</p>
                 </div>
-                <div class="results-col">
-                    <div class="stars">★★★★★</div>
-                    <p>"Fiz um quadro personalizado com foto da minha família. Atendimento rápido pelo WhatsApp e o produto ficou lindo. Minha mãe amou!"</p>
-                    <div class="author">
-                        <strong>João Pedro</strong>
-                        <span>Cliente desde 2023</span>
-                    </div>
+                <div class="card">
+                    <div class="icon">📅</div>
+                    <h3>Agenda automaticamente</h3>
+                    <p>O chatbot consulta sua disponibilidade, agenda e envia lembretes para reduzir faltas.</p>
                 </div>
-                <div class="results-col">
-                    <div class="stars">★★★★★</div>
-                    <p>"Precisava de fotos 3x4 para passaporte com urgência. Fui muito bem atendida, as fotos ficaram ótimas e saíram na hora."</p>
-                    <div class="author">
-                        <strong>Ana Luiza</strong>
-                        <span>Cliente desde 2024</span>
-                    </div>
+                <div class="card">
+                    <div class="icon">📊</div>
+                    <h3>Consulta preços em tempo real</h3>
+                    <p>Integração direta com Google Sheets. Tabela de preços sempre atualizada, sem erros manuais.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA FINAL -->
-    <section class="section" id="contato">
-        <div class="container">
-            <div class="cta-box fade-up">
-                <div class="cta-badge">
-                    🟡 Pronto para guardar suas memórias?
+                <div class="card">
+                    <div class="icon">💬</div>
+                    <h3>Atendimento 24h</h3>
+                    <p>Sua loja nunca fecha. Venda enquanto você dorme, de madrugada, finais de semana e feriados.</p>
                 </div>
-                <h2>
-                    Transforme suas fotos em lembranças incríveis
-                </h2>
-                <p style="color: #dbe5f4;">Fale agora mesmo com a gente pelo WhatsApp. Orçamento rápido, atendimento personalizado e qualidade garantida.</p>
-                <a href="https://wa.me/55SEUNUMERO" class="btn btn-whatsapp btn-large" style="margin-top: 20px;" target="_blank">
-                    <i data-lucide="message-circle" width="22" height="22"></i> Chamar no WhatsApp
-                </a>
-                <div class="mini-checks">
-                    <span>✓ Resposta em até 5 minutos</span>
-                    <span>✓ Atendimento de segunda a sábado</span>
-                    <span>✓ Orçamento sem compromisso</span>
+                <div class="card">
+                    <div class="icon">📈</div>
+                    <h3>Mais conversões</h3>
+                    <p>Capture todos os clientes que chamam. Resposta rápida = mais vendas fechadas.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🚀</div>
+                    <h3>Reduz trabalho operacional</h3>
+                    <p>Libere sua equipe de tarefas repetitivas e foque no que realmente gera receita.</p>
                 </div>
             </div>
         </div>
@@ -1126,38 +1144,47 @@
             <div class="faq">
                 <div class="faq-item fade-up">
                     <button class="faq-question">
-                        Quanto tempo leva para revelar as fotos?
+                        Preciso trocar meu número de WhatsApp?
                         <i data-lucide="chevron-down" class="chevron"></i>
                     </button>
                     <div class="faq-answer">
-                        <p>A revelação digital padrão fica pronta em até 24 horas. Formatos especiais podem levar até 48 horas.</p>
+                        <p>Não. O FotoBot AI funciona no seu número atual do WhatsApp Business, sem migração e sem perda de contatos.</p>
                     </div>
                 </div>
                 <div class="faq-item fade-up">
                     <button class="faq-question">
-                        Como envio minhas fotos para revelação?
+                        Como funciona a integração com minha planilha de preços?
                         <i data-lucide="chevron-down" class="chevron"></i>
                     </button>
                     <div class="faq-answer">
-                        <p>Você pode enviar diretamente pelo WhatsApp, sem perda de qualidade. Aceitamos JPG, PNG e PDF.</p>
+                        <p>O bot consulta automaticamente seu Google Sheets em tempo real. Toda alteração na planilha reflete instantaneamente nos orçamentos.</p>
                     </div>
                 </div>
                 <div class="faq-item fade-up">
                     <button class="faq-question">
-                        Vocês entregam em todo o Brasil?
+                        O que acontece se o cliente perguntar algo que o bot não sabe?
                         <i data-lucide="chevron-down" class="chevron"></i>
                     </button>
                     <div class="faq-answer">
-                        <p>Sim! Realizamos entregas para todo o Brasil com prazo e frete calculados no seu pedido.</p>
+                        <p>O bot identifica e transfere automaticamente para atendimento humano, com todo o histórico da conversa.</p>
                     </div>
                 </div>
                 <div class="faq-item fade-up">
                     <button class="faq-question">
-                        Preciso agendar o estúdio com antecedência?
+                        Em quanto tempo o FotoBot AI fica pronto para usar?
                         <i data-lucide="chevron-down" class="chevron"></i>
                     </button>
                     <div class="faq-answer">
-                        <p>Recomendamos agendamento com pelo menos 48 horas de antecedência para garantir a disponibilidade.</p>
+                        <p>A implementação completa leva em média uma semana, incluindo configuração, treinamento da IA e integrações.</p>
+                    </div>
+                </div>
+                <div class="faq-item fade-up">
+                    <button class="faq-question">
+                        Meus dados e os dos clientes ficam seguros?
+                        <i data-lucide="chevron-down" class="chevron"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim. Seguimos todas as diretrizes da LGPD. Dados armazenados em servidores seguros, nunca compartilhados com terceiros.</p>
                     </div>
                 </div>
             </div>
@@ -1172,24 +1199,14 @@
                     <div class="logo-icon">
                         <svg viewBox="0 0 52 52" fill="none" width="52" height="52">
                             <rect width="52" height="52" rx="14" fill="#e8a850"/>
-                            <circle cx="17" cy="18" r="5" fill="#0a0f1e"/>
-                            <path d="M7 37l7-10 5.5 6.5L32 25l10 12H7z" fill="#0a0f1e" opacity="0.9"/>
+                            <path d="M26 12 L32 24 L38 12 L44 24 L38 36 L32 36 L26 24 L20 36 L14 36 L8 24 L14 12 L20 24 L26 12Z" fill="#0a0f1e" opacity="0.9"/>
+                            <circle cx="26" cy="24" r="6" fill="#0a0f1e"/>
                         </svg>
                     </div>
-                    <div class="logo-text">
-                        <strong>FOTO SOBRAL</strong>
-                        <span>REVELAÇÃO & FOTOGRAFIA</span>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <a href="https://wa.me/55SEUNUMERO" target="_blank">WhatsApp</a>
-                    <a href="https://instagram.com" target="_blank">Instagram</a>
-                    <span>Rua Exemplo, 123 - Centro, Sobral/CE</span>
-                    <span>Seg-Sex: 8h-18h | Sáb: 8h-13h</span>
-                </div>
-            </div>
+                  
+            
             <div class="footer-bottom">
-                © 2026 Foto Sobral · Transformando fotos em lembranças desde 2010.
+                © 2026 FotoBot AI · Assistente Inteligente para Lojas Fotográficas.
             </div>
         </div>
     </footer>
@@ -1197,7 +1214,7 @@
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/55SEUNUMERO" class="floating-wa" target="_blank">
         <i data-lucide="message-circle"></i>
-        <span>Fale conosco</span>
+        <span>Solicitar Demo</span>
     </a>
 
     <script>
