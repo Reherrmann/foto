@@ -1,409 +1,551 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Foto Sobral — Assistente virtual</title>
-<style>
-  :root{
-    --navy:#0D2B45;
-    --navy-2:#123657;
-    --gold:#F5A623;
-    --gold-dim:#F5A62333;
-    --chatbg:#ECE5DD;
-    --header-green:#075E54;
-    --bubble-bot:#FFFFFF;
-    --bubble-client:#DCF8C6;
-    --ink:#1a1a1a;
-    --muted:#5b6b74;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:#fff;
-    color:var(--ink);
-  }
-  section{
-    min-height:100dvh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:2.4rem 1.4rem;
-    position:relative;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foto Sobral — Assistente virtual</title>
+    <style>
+        :root{
+            --navy:#0D2B45;
+            --navy-2:#123657;
+            --gold:#F5A623;
+            --gold-dim:#F5A62333;
+            --chatbg:#ECE5DD;
+            --header-green:#075E54;
+            --bubble-bot:#FFFFFF;
+            --bubble-client:#DCF8C6;
+            --ink:#1a1a1a;
+            --muted:#5b6b74;
+        }
 
-  /* HERO */
-  .hero{
-    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
-    color:#fff;
-    text-align:left;
-  }
-  .hero .eyebrow{
-    color:var(--gold);
-    font-size:0.8rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    font-weight:700;
-    margin-bottom:0.9rem;
-  }
-  .hero h1{
-    font-size:2.3rem;
-    line-height:1.15;
-    margin:0 0 1rem;
-    font-weight:800;
-    letter-spacing:-0.01em;
-  }
-  .hero p{
-    font-size:1.05rem;
-    color:#cbd8e2;
-    line-height:1.5;
-    max-width:32ch;
-    margin:0 0 2.2rem;
-  }
-  .scrollcue{
-    display:flex;
-    align-items:center;
-    gap:0.5rem;
-    color:var(--gold);
-    font-size:0.85rem;
-    font-weight:600;
-  }
-  .scrollcue .arrow{
-    animation:bob 1.6s ease-in-out infinite;
-  }
-  @keyframes bob{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(5px);}
-  }
+        /* ===== NAVBAR (da página principal, adaptada) ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            background: rgba(13, 43, 69, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: .3s ease;
+        }
+        .navbar.scrolled {
+            box-shadow: 0 10px 40px rgba(0,0,0,.35);
+        }
+        .container {
+            width: min(1200px, 92%);
+            margin: 0 auto;
+        }
+        .nav-inner {
+            height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-text span {
+            font-size: .68rem;
+            color: #cbd8e2;
+            letter-spacing: .14em;
+            margin-top: 3px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 34px;
+        }
+        .nav-links a {
+            color: #d5dff0;
+            font-size: .96rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: .25s ease;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            transition: .25s ease;
+            font-weight: 700;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,.18);
+            background: transparent;
+            color: #fff;
+            border-radius: 999px;
+            padding: 15px 24px;
+        }
+        .btn-outline:hover {
+            border-color: rgba(255,255,255,.35);
+            background: rgba(255,255,255,.04);
+        }
 
-  /* SCENARIO SECTIONS */
-  .scenario{ background:#fff; }
-  .scenario .tag{
-    display:inline-block;
-    font-size:0.72rem;
-    font-weight:700;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--navy);
-    background:var(--gold-dim);
-    padding:0.3rem 0.65rem;
-    border-radius:100px;
-    margin-bottom:0.9rem;
-    width:fit-content;
-  }
-  .scenario h2{
-    font-size:1.6rem;
-    margin:0 0 0.7rem;
-    color:var(--navy);
-    font-weight:800;
-    line-height:1.2;
-  }
-  .scenario .desc{
-    color:var(--muted);
-    font-size:0.98rem;
-    line-height:1.55;
-    margin:0 0 1.6rem;
-    max-width:48ch;
-  }
+        /* ===== ESTILOS GERAIS ===== */
+        *{box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            margin:0;
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+            background:#fff;
+            color:var(--ink);
+        }
+        section{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            padding:2.4rem 1.4rem;
+            position:relative;
+        }
+        /* Seções com fundo azul (hero e cta) sem altura mínima forçada */
+        .hero, .cta {
+            min-height: auto;
+        }
+        /* Seções de cenário mantêm altura cheia para destaque do mockup */
+        .scenario {
+            min-height: 100dvh;
+        }
 
-  /* PHONE MOCKUP */
-  .phone{
-    width:100%;
-    max-width:330px;
-    margin:0 auto;
-    background:#1a1a1a;
-    border-radius:34px;
-    padding:10px;
-    box-shadow:0 20px 45px -18px rgba(13,43,69,0.45);
-  }
-  .screen{
-    background:var(--chatbg);
-    border-radius:24px;
-    overflow:hidden;
-  }
-  .statusbar{
-    display:flex;
-    justify-content:space-between;
-    padding:6px 16px 2px;
-    font-size:0.7rem;
-    color:#111;
-  }
-  .whheader{
-    background:var(--header-green);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:8px 10px;
-  }
-  .avatar{
-    width:32px;height:32px;border-radius:50%;
-    background:var(--navy);
-    display:flex;align-items:center;justify-content:center;
-    font-weight:700;font-size:0.7rem;color:var(--gold);
-    flex-shrink:0;
-  }
-  .whheader .info p{margin:0;}
-  .whheader .name{font-size:0.85rem;color:#fff;font-weight:600;}
-  .whheader .status{font-size:0.68rem;color:#d9e6e3;}
-  .chat{
-    padding:12px 8px;
-    display:flex;
-    flex-direction:column;
-    gap:7px;
-    min-height:340px;
-  }
-  .bubble{
-    max-width:80%;
-    padding:7px 10px;
-    font-size:0.82rem;
-    line-height:1.35;
-    border-radius:10px 10px 10px 2px;
-    background:var(--bubble-bot);
-    box-shadow:0 1px 0.5px rgba(0,0,0,0.13);
-    opacity:0;
-    transform:translateY(8px);
-    transition:opacity 0.4s ease, transform 0.4s ease;
-  }
-  .bubble.visible{ opacity:1; transform:translateY(0); }
-  .bubble.client{
-    align-self:flex-end;
-    background:var(--bubble-client);
-    border-radius:10px 10px 2px 10px;
-  }
-  .inputbar{
-    display:flex;align-items:center;gap:8px;
-    padding:8px 10px;background:var(--chatbg);
-  }
-  .inputbar .field{
-    flex:1;background:#fff;border-radius:20px;
-    padding:7px 12px;font-size:0.75rem;color:#8696a0;
-  }
-  .inputbar .mic{
-    width:30px;height:30px;border-radius:50%;
-    background:#00a884;flex-shrink:0;
-  }
+        /* HERO (azul) */
+        .hero{
+            background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
+            color:#fff;
+            text-align:left;
+            padding-top: 110px; /* espaço para navbar fixa */
+            padding-bottom: 3rem;
+        }
+        .hero .eyebrow{
+            color:var(--gold);
+            font-size:0.8rem;
+            letter-spacing:0.08em;
+            text-transform:uppercase;
+            font-weight:700;
+            margin-bottom:0.9rem;
+        }
+        .hero h1{
+            font-size:2.3rem;
+            line-height:1.15;
+            margin:0 0 1rem;
+            font-weight:800;
+            letter-spacing:-0.01em;
+        }
+        .hero p{
+            font-size:1.05rem;
+            color:#cbd8e2;
+            line-height:1.5;
+            max-width:32ch;
+            margin:0 0 2.2rem;
+        }
+        .scrollcue{
+            display:flex;
+            align-items:center;
+            gap:0.5rem;
+            color:var(--gold);
+            font-size:0.85rem;
+            font-weight:600;
+        }
+        .scrollcue .arrow{
+            animation:bob 1.6s ease-in-out infinite;
+        }
+        @keyframes bob{
+            0%,100%{transform:translateY(0);}
+            50%{transform:translateY(5px);}
+        }
 
-  .note{
-    margin:1.4rem auto 0;
-    max-width:330px;
-    background:#FBEFDD;
-    color:#854F0B;
-    font-size:0.85rem;
-    line-height:1.45;
-    padding:0.85rem 1rem;
-    border-radius:12px;
-  }
+        /* SCENARIO (branco) */
+        .scenario{ background:#fff; }
+        .scenario .tag{
+            display:inline-block;
+            font-size:0.72rem;
+            font-weight:700;
+            letter-spacing:0.06em;
+            text-transform:uppercase;
+            color:var(--navy);
+            background:var(--gold-dim);
+            padding:0.3rem 0.65rem;
+            border-radius:100px;
+            margin-bottom:0.9rem;
+            width:fit-content;
+        }
+        .scenario h2{
+            font-size:1.6rem;
+            margin:0 0 0.7rem;
+            color:var(--navy);
+            font-weight:800;
+            line-height:1.2;
+        }
+        .scenario .desc{
+            color:var(--muted);
+            font-size:0.98rem;
+            line-height:1.55;
+            margin:0 0 1.6rem;
+            max-width:48ch;
+        }
 
-  /* CTA */
-  .cta{
-    background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
-    color:#fff;
-    text-align:left;
-  }
-  .cta h2{
-    font-size:1.9rem;
-    line-height:1.2;
-    margin:0 0 0.8rem;
-    font-weight:800;
-  }
-  .cta p{
-    color:#cbd8e2;
-    font-size:1rem;
-    line-height:1.55;
-    max-width:34ch;
-    margin:0 0 2rem;
-  }
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:0.5rem;
-    background:var(--gold);
-    color:var(--navy);
-    font-weight:700;
-    font-size:0.98rem;
-    padding:0.95rem 1.5rem;
-    border-radius:100px;
-    text-decoration:none;
-    width:fit-content;
-  }
-  .btn svg{width:18px;height:18px;flex-shrink:0;}
+        /* PHONE MOCKUP */
+        .phone{
+            width:100%;
+            max-width:330px;
+            margin:0 auto;
+            background:#1a1a1a;
+            border-radius:34px;
+            padding:10px;
+            box-shadow:0 20px 45px -18px rgba(13,43,69,0.45);
+        }
+        .screen{
+            background:var(--chatbg);
+            border-radius:24px;
+            overflow:hidden;
+        }
+        .statusbar{
+            display:flex;
+            justify-content:space-between;
+            padding:6px 16px 2px;
+            font-size:0.7rem;
+            color:#111;
+        }
+        .whheader{
+            background:var(--header-green);
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:8px 10px;
+        }
+        .avatar{
+            width:32px;height:32px;border-radius:50%;
+            background:var(--navy);
+            display:flex;align-items:center;justify-content:center;
+            font-weight:700;font-size:0.7rem;color:var(--gold);
+            flex-shrink:0;
+        }
+        .whheader .info p{margin:0;}
+        .whheader .name{font-size:0.85rem;color:#fff;font-weight:600;}
+        .whheader .status{font-size:0.68rem;color:#d9e6e3;}
+        .chat{
+            padding:12px 8px;
+            display:flex;
+            flex-direction:column;
+            gap:7px;
+            min-height:340px;
+        }
+        .bubble{
+            max-width:80%;
+            padding:7px 10px;
+            font-size:0.82rem;
+            line-height:1.35;
+            border-radius:10px 10px 10px 2px;
+            background:var(--bubble-bot);
+            box-shadow:0 1px 0.5px rgba(0,0,0,0.13);
+            opacity:0;
+            transform:translateY(8px);
+            transition:opacity 0.4s ease, transform 0.4s ease;
+        }
+        .bubble.visible{ opacity:1; transform:translateY(0); }
+        .bubble.client{
+            align-self:flex-end;
+            background:var(--bubble-client);
+            border-radius:10px 10px 2px 10px;
+        }
+        .inputbar{
+            display:flex;align-items:center;gap:8px;
+            padding:8px 10px;background:var(--chatbg);
+        }
+        .inputbar .field{
+            flex:1;background:#fff;border-radius:20px;
+            padding:7px 12px;font-size:0.75rem;color:#8696a0;
+        }
+        .inputbar .mic{
+            width:30px;height:30px;border-radius:50%;
+            background:#00a884;flex-shrink:0;
+        }
+        .note{
+            margin:1.4rem auto 0;
+            max-width:330px;
+            background:#FBEFDD;
+            color:#854F0B;
+            font-size:0.85rem;
+            line-height:1.45;
+            padding:0.85rem 1rem;
+            border-radius:12px;
+        }
 
-  footer{
-    text-align:left;
-    padding:1.6rem 1.4rem 2.2rem;
-    color:#7c8b93;
-    font-size:0.78rem;
-    background:#fff;
-  }
+        /* CTA (azul) */
+        .cta{
+            background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
+            color:#fff;
+            text-align:left;
+            padding:3rem 1.4rem;
+        }
+        .cta h2{
+            font-size:1.9rem;
+            line-height:1.2;
+            margin:0 0 0.8rem;
+            font-weight:800;
+        }
+        .cta p{
+            color:#cbd8e2;
+            font-size:1rem;
+            line-height:1.55;
+            max-width:34ch;
+            margin:0 0 2rem;
+        }
+        .btn-whatsapp{
+            display:inline-flex;
+            align-items:center;
+            gap:0.5rem;
+            background:var(--gold);
+            color:var(--navy);
+            font-weight:700;
+            font-size:0.98rem;
+            padding:0.95rem 1.5rem;
+            border-radius:100px;
+            text-decoration:none;
+            width:fit-content;
+        }
+        .btn-whatsapp svg{width:18px;height:18px;flex-shrink:0;}
 
-  @media(min-width:640px){
-    section{padding:3rem 3rem;}
-    .hero h1{font-size:2.9rem;}
-    .scenario h2{font-size:1.9rem;}
-  }
+        footer{
+            text-align:left;
+            padding:1.6rem 1.4rem 2.2rem;
+            color:#7c8b93;
+            font-size:0.78rem;
+            background:#fff;
+        }
 
-  @media (prefers-reduced-motion: reduce){
-    .scrollcue .arrow{animation:none;}
-    .bubble{transition:none;}
-  }
-</style>
+        /* Responsivo */
+        @media(min-width:640px){
+            section{padding:3rem 3rem;}
+            .hero h1{font-size:2.9rem;}
+            .scenario h2{font-size:1.9rem;}
+        }
+        @media (prefers-reduced-motion: reduce){
+            .scrollcue .arrow{animation:none;}
+            .bubble{transition:none;}
+        }
+        /* Navbar responsive: esconde links em telas pequenas */
+        @media(max-width:1024px){
+            .nav-links { display: none; }
+        }
+    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-<section class="hero">
-  <div class="eyebrow">Foto Sobral</div>
-  <h1>Sua assistente virtual, atendendo no WhatsApp 24h</h1>
-  <p>Veja como ela conduz uma conversa real de revelação, produtos, agendamento e cancelamento — role pra baixo.</p>
-  <div class="scrollcue">
-    <span>Deslize para ver</span>
-    <span class="arrow">↓</span>
-  </div>
-</section>
-
-<section class="scenario">
-  <span class="tag">Cenário 1</span>
-  <h2>Revelação de fotos</h2>
-  <p class="desc">Coleta tamanho e papel, recebe as fotos e reconhece sozinha quando o cliente terminou de enviar.</p>
-  <div class="phone">
-    <div class="screen">
-      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
-      <div class="whheader">
-        <div class="avatar">FS</div>
-        <div class="info">
-          <p class="name">Foto Sobral</p>
-          <p class="status">online</p>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="Group 11 (1) (1).svg" alt="PLURI Logo">
+                </div>
+                <div class="logo-text">
+                    <span>ASSISTENTE INTELIGENTE</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#demonstracao">Demonstração</a>
+                <a href="#servicos">Funcionalidades</a>
+                <a href="#integracoes">Integrações</a>
+                <a href="#como-funciona">Como funciona</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="https://wa.me/55SEUNUMERO" class="btn btn-outline" target="_blank">
+                    <i data-lucide="message-circle" width="18" height="18"></i> Falar no WhatsApp
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="chat" data-chat>
-        <div class="bubble client">Quero revelar fotos</div>
-        <div class="bubble">Qual tamanho deseja? 10x15, 15x21 ou 20x30?</div>
-        <div class="bubble client">10x15</div>
-        <div class="bubble">Qual papel prefere? Brilhante ou fosco?</div>
-        <div class="bubble client">Brilhante</div>
-        <div class="bubble">Perfeito! Envie suas fotos. Quando terminar escreva FINALIZEI</div>
-        <div class="bubble client">FINALIZEI</div>
-        <div class="bubble">Recebemos suas fotos! Tem mais algum produto?</div>
-      </div>
-      <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
-    </div>
-  </div>
-  <p class="note">O bot nunca conta ou calcula valor das fotos — o pedido segue para validação manual da equipe antes do pagamento.</p>
-</section>
+    </nav>
 
-<section class="scenario">
-  <span class="tag">Cenário 2</span>
-  <h2>Fotoprodutos</h2>
-  <p class="desc">Preço e promoção sempre vêm da planilha oficial — nunca inventados.</p>
-  <div class="phone">
-    <div class="screen">
-      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
-      <div class="whheader">
-        <div class="avatar">FS</div>
-        <div class="info">
-          <p class="name">Foto Sobral</p>
-          <p class="status">online</p>
+    <!-- ===== CONTEÚDO ===== -->
+    <section class="hero">
+        <div class="eyebrow">Foto Sobral</div>
+        <h1>Sua assistente virtual, atendendo no WhatsApp 24h</h1>
+        <p>Veja como ela conduz uma conversa real de revelação, produtos, agendamento e cancelamento — role pra baixo.</p>
+        <div class="scrollcue">
+            <span>Deslize para ver</span>
+            <span class="arrow">↓</span>
         </div>
-      </div>
-      <div class="chat" data-chat>
-        <div class="bubble client">Quanto custa uma caneca personalizada?</div>
-        <div class="bubble">📸 Caneca Personalizada · 💰 R$ 39,90 · 🎉 Leve 2 e ganhe 10% off</div>
-        <div class="bubble client">E o quadro 20x30?</div>
-        <div class="bubble">Vou verificar essa informação para você 😊</div>
-      </div>
-      <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
-    </div>
-  </div>
-  <p class="note">Nenhum preço ou promoção é criado pela IA — tudo consultado direto na planilha da Foto Sobral.</p>
-</section>
+    </section>
 
-<section class="scenario">
-  <span class="tag">Cenário 3</span>
-  <h2>Agendamento de ensaio</h2>
-  <p class="desc">Nunca oferece horários do dia atual — a prioridade é sempre amanhã.</p>
-  <div class="phone">
-    <div class="screen">
-      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
-      <div class="whheader">
-        <div class="avatar">FS</div>
-        <div class="info">
-          <p class="name">Foto Sobral</p>
-          <p class="status">online</p>
+    <section class="scenario">
+        <span class="tag">Cenário 1</span>
+        <h2>Revelação de fotos</h2>
+        <p class="desc">Coleta tamanho e papel, recebe as fotos e reconhece sozinha quando o cliente terminou de enviar.</p>
+        <div class="phone">
+            <div class="screen">
+                <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+                <div class="whheader">
+                    <div class="avatar">FS</div>
+                    <div class="info">
+                        <p class="name">Foto Sobral</p>
+                        <p class="status">online</p>
+                    </div>
+                </div>
+                <div class="chat" data-chat>
+                    <div class="bubble client">Quero revelar fotos</div>
+                    <div class="bubble">Qual tamanho deseja? 10x15, 15x21 ou 20x30?</div>
+                    <div class="bubble client">10x15</div>
+                    <div class="bubble">Qual papel prefere? Brilhante ou fosco?</div>
+                    <div class="bubble client">Brilhante</div>
+                    <div class="bubble">Perfeito! Envie suas fotos. Quando terminar escreva FINALIZEI</div>
+                    <div class="bubble client">FINALIZEI</div>
+                    <div class="bubble">Recebemos suas fotos! Tem mais algum produto?</div>
+                </div>
+                <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
+            </div>
         </div>
-      </div>
-      <div class="chat" data-chat>
-        <div class="bubble client">Quero agendar um ensaio de gestante</div>
-        <div class="bubble">Qual é o seu nome?</div>
-        <div class="bubble client">Fernanda</div>
-        <div class="bubble">Tenho estes horários para amanhã: 09h · 14h · 17h. Qual prefere?</div>
-        <div class="bubble client">14h</div>
-        <div class="bubble">Só confirmando: 16/07 às 14h. Está correto?</div>
-        <div class="bubble client">sim</div>
-        <div class="bubble">Prontinho! Ensaio agendado para 16/07 às 14h</div>
-      </div>
-      <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
-    </div>
-  </div>
-  <p class="note">Consulta em tempo real no Google Calendar — nunca sugere horários do mesmo dia nem já ocupados.</p>
-</section>
+        <p class="note">O bot nunca conta ou calcula valor das fotos — o pedido segue para validação manual da equipe antes do pagamento.</p>
+    </section>
 
-<section class="scenario">
-  <span class="tag">Cenário 4</span>
-  <h2>Cancelamento</h2>
-  <p class="desc">Só cancela depois da confirmação explícita do cliente.</p>
-  <div class="phone">
-    <div class="screen">
-      <div class="statusbar"><span>9:41</span><span>●●●</span></div>
-      <div class="whheader">
-        <div class="avatar">FS</div>
-        <div class="info">
-          <p class="name">Foto Sobral</p>
-          <p class="status">online</p>
+    <section class="scenario">
+        <span class="tag">Cenário 2</span>
+        <h2>Fotoprodutos</h2>
+        <p class="desc">Preço e promoção sempre vêm da planilha oficial — nunca inventados.</p>
+        <div class="phone">
+            <div class="screen">
+                <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+                <div class="whheader">
+                    <div class="avatar">FS</div>
+                    <div class="info">
+                        <p class="name">Foto Sobral</p>
+                        <p class="status">online</p>
+                    </div>
+                </div>
+                <div class="chat" data-chat>
+                    <div class="bubble client">Quanto custa uma caneca personalizada?</div>
+                    <div class="bubble">📸 Caneca Personalizada · 💰 R$ 39,90 · 🎉 Leve 2 e ganhe 10% off</div>
+                    <div class="bubble client">E o quadro 20x30?</div>
+                    <div class="bubble">Vou verificar essa informação para você 😊</div>
+                </div>
+                <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
+            </div>
         </div>
-      </div>
-      <div class="chat" data-chat>
-        <div class="bubble client">Preciso cancelar meu ensaio</div>
-        <div class="bubble">Pode me informar o e-mail usado no agendamento?</div>
-        <div class="bubble client">fernanda@gmail.com</div>
-        <div class="bubble">Encontrei: 16/07 às 14h. Tem certeza que deseja cancelar?</div>
-        <div class="bubble client">sim, confirmo</div>
-        <div class="bubble">Cancelado com sucesso 😊 Se quiser agendar de novo, estamos à disposição.</div>
-      </div>
-      <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
-    </div>
-  </div>
-  <p class="note">O evento só é removido do Google Calendar depois da confirmação explícita do cliente.</p>
-</section>
+        <p class="note">Nenhum preço ou promoção é criado pela IA — tudo consultado direto na planilha da Foto Sobral.</p>
+    </section>
 
-<section class="cta">
-  <h2>Quer testar você mesma?</h2>
-  <p>Fale com a assistente agora pelo WhatsApp e veja funcionando de verdade, na sua conversa.</p>
-  <a class="btn" href="https://wa.me/5500000000000" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.87 14.18c-.25.7-1.45 1.32-2 1.4-.53.08-1.15.11-1.86-.12-.43-.14-.98-.32-1.7-.63-2.99-1.29-4.94-4.3-5.09-4.5-.15-.2-1.22-1.62-1.22-3.09 0-1.47.77-2.19 1.05-2.49.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.65-.08.18-.21.76-.89.96-1.19.2-.3.4-.25.67-.15.28.1 1.75.82 2.05.97.3.15.5.22.57.35.08.13.08.75-.17 1.45z"/></svg>
-    Testar no WhatsApp
-  </a>
-</section>
+    <section class="scenario">
+        <span class="tag">Cenário 3</span>
+        <h2>Agendamento de ensaio</h2>
+        <p class="desc">Nunca oferece horários do dia atual — a prioridade é sempre amanhã.</p>
+        <div class="phone">
+            <div class="screen">
+                <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+                <div class="whheader">
+                    <div class="avatar">FS</div>
+                    <div class="info">
+                        <p class="name">Foto Sobral</p>
+                        <p class="status">online</p>
+                    </div>
+                </div>
+                <div class="chat" data-chat>
+                    <div class="bubble client">Quero agendar um ensaio de gestante</div>
+                    <div class="bubble">Qual é o seu nome?</div>
+                    <div class="bubble client">Fernanda</div>
+                    <div class="bubble">Tenho estes horários para amanhã: 09h · 14h · 17h. Qual prefere?</div>
+                    <div class="bubble client">14h</div>
+                    <div class="bubble">Só confirmando: 16/07 às 14h. Está correto?</div>
+                    <div class="bubble client">sim</div>
+                    <div class="bubble">Prontinho! Ensaio agendado para 16/07 às 14h</div>
+                </div>
+                <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
+            </div>
+        </div>
+        <p class="note">Consulta em tempo real no Google Calendar — nunca sugere horários do mesmo dia nem já ocupados.</p>
+    </section>
 
-<footer>PLURI automação</footer>
+    <section class="scenario">
+        <span class="tag">Cenário 4</span>
+        <h2>Cancelamento</h2>
+        <p class="desc">Só cancela depois da confirmação explícita do cliente.</p>
+        <div class="phone">
+            <div class="screen">
+                <div class="statusbar"><span>9:41</span><span>●●●</span></div>
+                <div class="whheader">
+                    <div class="avatar">FS</div>
+                    <div class="info">
+                        <p class="name">Foto Sobral</p>
+                        <p class="status">online</p>
+                    </div>
+                </div>
+                <div class="chat" data-chat>
+                    <div class="bubble client">Preciso cancelar meu ensaio</div>
+                    <div class="bubble">Pode me informar o e-mail usado no agendamento?</div>
+                    <div class="bubble client">fernanda@gmail.com</div>
+                    <div class="bubble">Encontrei: 16/07 às 14h. Tem certeza que deseja cancelar?</div>
+                    <div class="bubble client">sim, confirmo</div>
+                    <div class="bubble">Cancelado com sucesso 😊 Se quiser agendar de novo, estamos à disposição.</div>
+                </div>
+                <div class="inputbar"><div class="field">Mensagem</div><div class="mic"></div></div>
+            </div>
+        </div>
+        <p class="note">O evento só é removido do Google Calendar depois da confirmação explícita do cliente.</p>
+    </section>
 
-<script>
-  const bubbles = document.querySelectorAll('.bubble');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, groupIndex) => {
-      if (entry.isIntersecting) {
-        const chat = entry.target;
-        const items = chat.querySelectorAll('.bubble');
-        items.forEach((b, i) => {
-          setTimeout(() => b.classList.add('visible'), i * 220);
+    <section class="cta">
+        <h2>Quer testar você mesma?</h2>
+        <p>Fale com a assistente agora pelo WhatsApp e veja funcionando de verdade, na sua conversa.</p>
+        <a class="btn-whatsapp" href="https://wa.me/5511915954769" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.5 0 9.96-4.46 9.96-9.96S17.54 2 12.04 2zm5.87 14.18c-.25.7-1.45 1.32-2 1.4-.53.08-1.15.11-1.86-.12-.43-.14-.98-.32-1.7-.63-2.99-1.29-4.94-4.3-5.09-4.5-.15-.2-1.22-1.62-1.22-3.09 0-1.47.77-2.19 1.05-2.49.27-.3.6-.37.8-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.17-.31.38-.44.51-.15.17-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.65-.08.18-.21.76-.89.96-1.19.2-.3.4-.25.67-.15.28.1 1.75.82 2.05.97.3.15.5.22.57.35.08.13.08.75-.17 1.45z"/></svg>
+            Testar no WhatsApp
+        </a>
+    </section>
+
+    <footer>PLURI automação</footer>
+
+    <script>
+        lucide.createIcons();
+
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 20);
         });
-        observer.unobserve(chat);
-      }
-    });
-  }, { threshold: 0.35 });
 
-  document.querySelectorAll('[data-chat]').forEach(chat => observer.observe(chat));
-</script>
+        const bubbles = document.querySelectorAll('.bubble');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const chat = entry.target;
+                    const items = chat.querySelectorAll('.bubble');
+                    items.forEach((b, i) => {
+                        setTimeout(() => b.classList.add('visible'), i * 220);
+                    });
+                    observer.unobserve(chat);
+                }
+            });
+        }, { threshold: 0.35 });
+
+        document.querySelectorAll('[data-chat]').forEach(chat => observer.observe(chat));
+    </script>
 
 </body>
 </html>
